@@ -2,28 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.pengjunlee.service.mapper.UserMapper">
 
-    <select id="pageUserByCond" resultType="com.pengjunlee.domain.UserEntity">
-        SELECT * FROM tbl_user
+    <select id="listSearchEntity" resultType="com.pengjunlee.domain.SearchEntity">
+        SELECT id AS value , nick_name AS label FROM tbl_sys_user
         <where>
-            <if test="name !=null and name != ''">
-                AND name LIKE "%"#{name}"%"
-            </if>
-            <if test="nickName !=null and nickName != ''">
-                AND nick_name LIKE "%"#{nickName}"%"
-            </if>
-            <if test="locked !=null and locked != ''">
-                AND locked = #{locked}
-            </if>
-            <if test="roles !=null and roles != ''">
-                <choose>
-                    <when test="roles == 1">
-                        AND INSTR(roles,'admin')>0
-                    </when>
-                    <when test="roles == 0">
-                        AND INSTR(roles,'editor')>0
-                    </when>
+            INSTR(roles,'merchant')>0
+        </where>
+    </select>
 
-                </choose>
+    <select id="pageUserByCond" resultType="com.pengjunlee.domain.UserEntity">
+        SELECT * FROM tbl_sys_user
+        <where>
+            <if test="1">
+                AND INSTR(roles,'merchant')>0
+            </if>
+
+            <if test="contactPhone !=null and contactPhone != ''">
+                AND contact_phone LIKE "%"#{contactPhone}"%"
+            </if>
+            <if test="enabled !=null and enabled !=''">
+                AND enabled = #{enabled}
+            </if>
+            <if test="id !=null and id !=''">
+                AND id = #{id}
             </if>
         </where>
         <choose>
@@ -42,28 +42,19 @@
     </select>
 
     <select id="countUserByCond" resultType="int">
-        select count(id) from tbl_user
+        select count(id) from tbl_sys_user
         <where>
-            <if test="name !=null and name != ''">
-                AND name LIKE "%"#{name}"%"
+            <if test="1">
+                AND INSTR(roles,'merchant')>0
             </if>
-            <if test="nickName !=null and nickName != ''">
-                AND nick_name LIKE "%"#{nickName}"%"
-            </if>
-            <if test="locked !=null and locked != ''">
-                AND locked = #{locked}
-            </if>
-            <if test="roles !=null and roles != ''">
-                <choose>
-                    <when test="roles == 1">
-                        AND INSTR(roles,'admin')>0
-                    </when>
-                    <when test="roles == 0">
-                        AND INSTR(roles,'editor')>0
-                    </when>
 
-                </choose>
+            <if test="contactPhone !=null and contactPhone != ''">
+                AND contact_phone LIKE "%"#{contactPhone}"%"
             </if>
+            <if test="enabled !=null">
+                AND enabled = #{enabled}
+            </if>
+
         </where>
     </select>
 

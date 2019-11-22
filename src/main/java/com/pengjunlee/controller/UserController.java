@@ -39,12 +39,11 @@ public class UserController {
 
 
     @PostMapping("/create")
-    @RequiresRoles(value = {"admin"})
+    // @RequiresRoles(value = {"administrator"})
     public Object createUser(@RequestBody UserEntity userEntity) {
         // 设置默认字段
         String password = new SimpleHash("SHA-1", "123456", userEntity.getName(), 16).toString();
         userEntity.setPassword(password);
-        userEntity.setLocked(false);
         boolean save = userService.save(userEntity);
 
         BaseResponse<Object> ret = new BaseResponse<Object>();
@@ -102,7 +101,7 @@ public class UserController {
             PageUtil pageUtil = userService.pageUserByCond(params);
             BaseResponse<Object> ret = new BaseResponse<Object>(pageUtil);
             ret.setCode(0);
-            ret.setMessage("用户数据加载成功");
+            ret.setMessage("数据加载成功");
             return ret;
         } catch (Exception e) {
             BaseResponse<Object> ret = new BaseResponse<Object>();
@@ -114,17 +113,17 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @RequiresRoles(value = {"admin"})
+    @RequiresRoles(value = {"administrator"})
     public Object userList(@PathVariable(name = "id") Long id) {
         BaseResponse<Object> ret = new BaseResponse<Object>();
         boolean b = userService.removeById(id);
         if (b) {
             ret.setCode(0);
-            ret.setMessage("用户数据加载成功");
+            ret.setMessage("删除成功");
 
         } else {
             ret.setCode(-1);
-            ret.setMessage("获取数据失败");
+            ret.setMessage("删除失败");
         }
         return ret;
 

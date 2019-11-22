@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pengjunlee.service.mapper.PoseMapper">
+    <select id="pagePoseByCond" resultType="com.pengjunlee.domain.PoseEntity">
+        SELECT * FROM tbl_pose
+
+        <where>
+            <if test="dayType !=null and dayType != ''">
+                AND day_type = #{dayType}
+            </if>
+            <if test="poseType !=null and poseType != ''">
+                AND pose_type = #{poseType}
+            </if>
+            <if test="poseStyleId !=null and poseStyleId != ''">
+                AND pose_style_id = #{poseStyleId}
+            </if>
+        </where>
+
+        ORDER BY created_time desc
+
+        <if test="offset != null and limit != null">
+            LIMIT ${offset},${limit}
+        </if>
+
+    </select>
+
+    <select id="countPoseByCond" resultType="int">
+        select count(id)
+        from tbl_pose
+
+        <where>
+            <if test="dayType !=null and dayType != ''">
+                AND day_type = #{dayType}
+            </if>
+            <if test="poseType !=null and poseType != ''">
+                AND pose_type = #{poseType}
+            </if>
+            <if test="poseStyleId !=null and poseStyleId != ''">
+                AND pose_style_id = #{poseStyleId}
+            </if>
+        </where>
+
+    </select>
+
+</mapper>

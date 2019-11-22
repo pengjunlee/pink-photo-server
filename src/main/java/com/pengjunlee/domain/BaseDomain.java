@@ -8,6 +8,7 @@ import java.util.Date;
  * @author pengjunlee
  * @create 2019-11-01 17:53
  */
+
 @Data
 public class BaseDomain {
 
@@ -15,5 +16,12 @@ public class BaseDomain {
     private Date createdTime;
 
     private Date updatedTime;
+
+    private String createdBy;
+
+    private String updatedBy;
+
+    private Boolean enabled;
+
 
 }

@@ -99,6 +99,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/api/v1/login", "anon"); // 可匿名访问
         filterChainDefinitionMap.put("/api/v1/verifycode", "anon"); // 可匿名访问
         filterChainDefinitionMap.put("/api/v1/download/**", "anon"); // 可匿名访问
+        filterChainDefinitionMap.put("/api/v1/upload/**", "anon"); // 可匿名访问
+
         filterChainDefinitionMap.put("/**", "jwtFilter,authc"); // 需登录才能访问
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;

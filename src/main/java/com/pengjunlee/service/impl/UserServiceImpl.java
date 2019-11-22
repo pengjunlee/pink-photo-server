@@ -3,6 +3,7 @@ package com.pengjunlee.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pengjunlee.domain.SearchEntity;
 import com.pengjunlee.domain.UserAuthInfo;
 import com.pengjunlee.domain.UserEntity;
 import com.pengjunlee.service.UserService;
@@ -57,7 +58,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
         map.put("offset", offset);
         List<UserEntity> users = userMapper.pageUserByCond(map);
         int count = userMapper.countUserByCond(map);
-        return new PageUtil(users, count);
+        List<SearchEntity> searchEntities = userMapper.listSearchEntity();
+        return new PageUtil(users, count,searchEntities);
     }
 
 }

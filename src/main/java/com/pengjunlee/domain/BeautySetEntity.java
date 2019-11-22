@@ -5,15 +5,13 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * @author pengjunlee
  * @create 2019-09-03 9:30
  */
 @Data
-@TableName("tbl_sys_user")//@TableName中的值对应着表名
-public class UserEntity extends BaseDomain {
+@TableName("tbl_beauty_set")//@TableName中的值对应着表名
+public class BeautySetEntity extends BaseDomain {
 
     /**
      * 主键
@@ -28,32 +26,13 @@ public class UserEntity extends BaseDomain {
     @TableId(type = IdType.AUTO)
     private Long id; // 主键ID
 
-    private String name; // 登录用户名
+    private Long deviceId; // 设备ID
 
-    private String password; // 登录密码
+    private String rowType; // 场景等级
 
-    private String nickName; // 昵称
+    private String colType; // A 正常运行，其他为异常
 
-    private String introduction; // 简介
+    private Integer value;
 
-    private String roles; // 角色
-
-    private String avatar; // 头像
-
-    private Boolean locked; // 0 未锁定，1 锁定
-
-    private Boolean imageBrowse; // 0 无权限，1 有权限
-
-    private Float royaltyRatio;
-
-    private String contactName;
-
-    private String contactPhone;
-
-    private String province;
-
-    private String city;
-
-    private String address;
 
 }

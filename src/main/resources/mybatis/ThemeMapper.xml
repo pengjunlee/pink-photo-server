@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pengjunlee.service.mapper.ThemeMapper">
+
+
+    <select id="listSearchEntity" resultType="com.pengjunlee.domain.SearchEntity">
+        SELECT id AS value , name AS label FROM tbl_theme
+    </select>
+
+    <select id="pageThemeByCond" resultType="com.pengjunlee.domain.ThemeEntity">
+        SELECT * FROM tbl_theme
+
+        ORDER BY created_time desc
+
+        <if test="offset != null and limit != null">
+            LIMIT ${offset},${limit}
+        </if>
+
+    </select>
+
+    <select id="countThemeByCond" resultType="int">
+        select count(id)
+        from tbl_theme
+    </select>
+
+
+</mapper>
